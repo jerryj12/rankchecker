@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Keyword Rank Checker - Results</title>
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #007BFF;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        h2 {
+            color: #009688;
+            font-size: 20px;
+            margin-top: 30px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        ol {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        p {
+            color: #555;
+        }
+
+        /* Add custom button styles */
+        .home-btn {
+            display: block;
+            width: 150px;
+            margin: 0 auto;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+p{
+    overflow: hidden;
+}
+        /* Responsive Styling */
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            input[type="text"],
+            select,
+            input[type="submit"] {
+                padding: 5px;
+            }
+            li {
+                padding: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Keyword Rank Checker - Results</h1>
+        {% for keyword_result in results %}
+            <h2>{{ keyword_result['keyword'] }}</h2>
+            {% if keyword_result['rank'] == -1 %}
+                <p style="color: red;">Keyword not Ranked</p>
+            {% else %}
+                <p>Rank: {{ keyword_result['rank'] }}</p>
+            {% endif %}
+            <ol>
+                {% set rank = 1 %}
+                {% for result in keyword_result['search_results'] %}
+                    <li>
+                        <h3><a href="{{ result['link'] }}" target="_blank">{{ result['title'] }}</a></h3>
+                        <p>{{ result['link']}}</p>
+                        {% set rank = rank + 1 %}
+                    </li>
+                {% endfor %}
+            </ol>
+        {% endfor %}
+
+        <!-- Add a button to redirect to the homepage -->
+        <a href="/" class="home-btn">Check more keywords</a>
+    </div>
+</body>
+</html>
